@@ -1,0 +1,18 @@
+# given we have the script test.sh
+# ref: https://stackoverflow.com/questions/21160776/how-to-execute-a-shell-script-on-a-remote-server-using-ansible
+
+---
+- name: Transfer and execute a script.
+  hosts: server
+  remote_user: test_user
+  sudo: yes
+  tasks:
+     - name: Transfer the script
+       copy: src=test.sh dest=/home/test_user mode=0777
+
+     - name: Execute the script
+       command: sh /home/test_user/test.sh #(there's another command to run locally, check github link above)
+
+
+# Link to cicd pipelines for testing with kind before deployment
+# https://betterprogramming.pub/accelerate-your-ci-cd-pipelines-with-kubernetes-in-docker-kind-109a67b39c82
